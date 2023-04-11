@@ -18,26 +18,22 @@
 
             data(){
                 return{
-                    counter: 0
+                    text: "Hello Vue"
                 };
             },
-            
             methods: {
-                increment(){
-                    this.counter++;
-                },
-                decrement(){
-                    this.counter--;
-                },
-                reset(){
-                    this.counter = 0;
+                input(e){
+                    this.text = e.target.value;
                 }
             },
+
             template:   ` 
-                            <h1>{{ counter }}</h1>
-                            <button v-on:click="increment">+</button>
-                            <button v-on:click="decrement">-</button>
-                            <button v-on:click="reset">Reset</button>
+                            <p>{{ text }}</p>
+                            <input 
+                                type="text" 
+                                v-on:input="input" 
+                                v-bind:value="text" 
+                            /> 
                         `
 
         }).mount('#app');
