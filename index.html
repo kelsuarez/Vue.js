@@ -18,16 +18,14 @@
 
             data(){
                 return{
-                    text: "Hello Vue"
+                    firtsName: "Kelvin",
+                    lastName: "Suarez",
                 };
             },
 
             template:   ` 
-                            <p>{{ text }}</p>
-                            <input 
-                                type="text" 
-                                v-model="text"
-                            /> 
+                            <div>{{ firtsName }}</div>
+                            <div>{{ lastName }}</div>
                         `
 
         }).mount('#app');
