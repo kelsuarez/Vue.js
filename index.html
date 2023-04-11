@@ -12,20 +12,38 @@
     <div id="app"></div>
 
     <script>
+
+
         const vm = Vue.createApp({
 
             data(){
                 return{
-                    attr: "src",
-                    img: "https://images.pexels.com/photos/13919680/pexels-photo-13919680.jpeg"
+                    counter: 0
                 };
             },
             
-            template: `<img v-bind:[attr]="img" v-bind:alt="img">`
+            methods: {
+                increment(){
+                    this.counter++;
+                },
+                decrement(){
+                    this.counter--;
+                },
+                reset(){
+                    this.counter = 0;
+                }
+            },
+            template:   ` 
+                            <h1>{{ counter }}</h1>
+                            <button v-on:click="increment">+</button>
+                            <button v-on:click="decrement">-</button>
+                            <button v-on:click="reset">Reset</button>
+                        `
 
         }).mount('#app');
 
-        console.log(vm);
+        // console.log(vm);
+
 
     </script>
 </body>
