@@ -20,12 +20,20 @@
                 return{
                     firtsName: "Kelvin",
                     lastName: "Suarez",
+                    now: new Date()
                 };
             },
-
+            computed: {
+                fullName(){
+                    return this.firtsName + " " + this.lastName;
+                },
+                today(){
+                    return this.now.toLocaleDateString();
+                }
+            },
             template:   ` 
-                            <div>{{ firtsName }}</div>
-                            <div>{{ lastName }}</div>
+                            <div>{{ fullName }}</div>
+                            <div>{{ today }}</div>
                         `
 
         }).mount('#app');
