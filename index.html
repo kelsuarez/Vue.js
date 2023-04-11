@@ -14,14 +14,14 @@
     <script>
 
 
-        const vm = Vue.createApp({
+        const app = Vue.createApp({
 
             data(){
                 return{
                     text: "Accede a tu cuenta",
                     open: false,
                     username: "",
-                    posts: [{
+                    post: [{
                         title: "Titulo 1",
                         description: "Lorem ispum dolor sit amet"
                     }, {
@@ -55,44 +55,19 @@
                     return this.open ? ['open'] : ['closed'];
                 },
             },
-            methods: {
-                add() {
-                this.posts.push(
-                    {
-                    title:this.newTitle,
-                    description: this.newDescription
-                    }
-                );
-                this.newTitle = "";
-                this.newDescription = "";
-                },
-                del(index) {
-                this.posts.splice(0, 1);
-                console.log(index);
-                }
-            },
+
             template:   ` 
                             <div class="container" :class="styles">
                                 <h2>{{ text }}</h2>
                                 <div v-if="open">
                                     <p>Bienvenido, {{ username}}</p>
                                     <div class="list">
-                                        <div v-for="( { title, description  }, index ) in posts" :key="index" class="list-item">
-                                            <div class="title">{{ title }}</div>
-                                            <p class="mb-0">{{ description }}</p>
-                                            <button v-on:click="del(index)">Eliminar</button>
-                                        </div>
+                                        <item
+                                            v-for="(item, i) in post"
+                                            :key="i"
+                                            :post="item"
+                                        />
                                     </div>
-                                    <h3>Agregar un elemento a la lista</h3>
-                                    <div>
-                                    <label>Titulo</label>
-                                    <input type="text" v-model="newTitle" />
-                                    </div>
-                                    <div>
-                                    <label>Descripción</label>
-                                    <input type="text" v-model="newDescription" />
-                                    </div>
-                                    <button v-on:click="add">Agregar</button>
                                 </div>
                                 <div v-else>
                                     <div>Username</div>
@@ -105,7 +80,20 @@
                             </div>
                         `
 
-        }).mount('#app');
+        });
+        
+        app.component("item", {
+            props: ["post"],
+            template: 
+                        `
+                            <div class="item">
+                                <div class="title">{{ post.title }}</div>
+                                <p>{{ post.description }}</p>
+                            </div>
+                        `
+        });
+
+        const vm = app.mount('#app');
 
         // console.log(vm);
 
@@ -131,9 +119,6 @@
             padding: 8px 24px;
             border-radius: 12px;
         }
-        .mb-0{
-            margin-bottom: 0;
-        }
         .closed {
             background-color: #eca1a6;
         }
@@ -144,12 +129,12 @@
             display: flex;
             flex-direction: column;
         }
-        .list-item {
+        .item {
             border: 1px solid black;
         }
         .title {
             font-weight: bold;
-            font-size: 1.5rem;
+            font-size: 1rem;
         }
     </style>
 </body>
